@@ -32,5 +32,18 @@ end
   validates :name, length: {maximum: 20, minimum: 2}
   validates :name, presence: true
   validates :introduction, length: {maximum: 50}
+  def self.search(method,method2,word)
+                if method2 == "forward_match"
+                         where("name LIKE?","#{word}%")
+                elsif method2 == "backward_match"
+                         where("name LIKE?","%#{word}")
+                elsif method2 == "perfect_match"
+                         where("#{word}")
+                elsif method2 == "partial_match"
+                         where("name LIKE?","%#{word}%")
+                else
+                         all
+                end
+    end
 end
 
